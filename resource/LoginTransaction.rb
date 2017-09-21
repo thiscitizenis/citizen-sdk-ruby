@@ -52,8 +52,8 @@ class LoginTransaction
     def fromHash(attributeHash)
         if !attributeHash.nil?
             @id       = attributeHash['id']
-            @username = attributeHash['isPrimary']
-            @token    = attributeHash['isEntityEmail']
+            @username = attributeHash['username']
+            @token    = attributeHash['token']
         end
 
         return self

@@ -1,13 +1,13 @@
 class WebLoginSessionDetails
 
-    attr_reader :username,
+    attr_reader :email,
                 :apiKey,
                 :sessionNonce,
                 :sessionKey
 
 
     def initialize()
-        @username     = nil   # String (email address)
+        @email     = nil   # String (email address)
         @apiKey       = nil   # String (alpha-numeric)
         @sessionNonce = nil   # String (alpha-numeric)
         @sessionKey   = nil   # String (alpha-numeric)
@@ -15,11 +15,11 @@ class WebLoginSessionDetails
     end
 
 
-    def username=(username)
-        if !ValueCheck.checkEmailAddress(username)
-            raise ArgumentError.new('WebLoginSessionDetails: username must be a string email address')
+    def email=(email)
+        if !ValueCheck.checkEmailAddress(email)
+            raise ArgumentError.new('WebLoginSessionDetails: email must be a string email address')
         end
-        @username = username.dup()
+        @email = email.dup()
     end
 
 
@@ -49,7 +49,7 @@ class WebLoginSessionDetails
 
     def fromHash(attributeHash)
         if !attributeHash.nil?
-            @username     = attributeHash['username']
+            @email     = attributeHash['email']
             @apiKey       = attributeHash['apiKey']
             @sessionNonce = attributeHash['sessionNonce']
             @sessionKey   = attributeHash['sessionKey']

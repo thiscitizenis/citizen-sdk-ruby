@@ -240,7 +240,7 @@ class TokenActions
         end
 
         if token.hashedUserEmail.nil?
-            raise RuntimeError.new('TokenActions.verifyToken: does not have a hashed username')
+            raise RuntimeError.new('TokenActions.verifyToken: does not have a hashed email')
         end
 
         response = RestClientWrapper::sendRequest(method: 'get',

@@ -15,7 +15,7 @@ module PropertyType
     POB                                     = "POB"                     # Text
     NATIONALITY                             = "NATIONALITY"             # Country code (ISO-3166)
     PROFILEPIC                              = "PROFILEPIC"
-    NAMESPACE                               = "NAMESPACE"               # Alpha-numeric text		
+    USERNAME                                = "USERNAME"               # Alpha-numeric text
     REQUESTER_LAT                           = "REQUESTER_LAT"
     REQUESTER_LNG                           = "REQUESTER_LNG"
     RESPONDER_LAT                           = "RESPONDER_LAT"
