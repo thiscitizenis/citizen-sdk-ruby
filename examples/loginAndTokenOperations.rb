@@ -51,7 +51,7 @@ require "#{apiPath}/config/Config.rb"
 #
 # The following parameters need to be set to those of a current Citizen user.
 #
-username   = "test123@test.com";
+username   = "test123@test.com"
 password   = "Test1234"
 passphrase = "Test12" 
 #
@@ -63,7 +63,7 @@ apiKey     = ""
 
 # Log in with a username and password, returning a User object.
 
-user = UserActions.login(username: username,
+user = UserActions.login(email: username,
                          password: password)
 
 puts("*****************************************")
@@ -133,7 +133,7 @@ puts("*****************************************\n\n")
 # The public key needs to be enrolled once. After it is enrolled then
 # the user may use their private key to log in.
 
-user = UserActions.loginWithSignedTransaction(username: username,
+user = UserActions.loginWithSignedTransaction(email: username,
                                               ecdsa: ecdsa)
 
 puts("*****************************************")
@@ -387,7 +387,7 @@ puts("*****************************************\n\n")
 
 puts("\nSending web access token request - grant this on phone!\n\n")
 
-webLoginSessionDetails = UserActions.webLoginFromToken(username: username)
+webLoginSessionDetails = UserActions.webLoginFromToken(email: username)
 
 puts("*****************************************")
 puts("TokenActions.webLoginSessionDetails()")

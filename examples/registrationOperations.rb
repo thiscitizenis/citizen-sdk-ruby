@@ -65,7 +65,7 @@ personId    = ""
 
 # A new user can be created by specifying a username, password and passphrase.
 
-user = UserActions.createUser(username: username,
+user = UserActions.createUser(email: username,
                               password: password,
                               passPhrase: passphrase)
 
