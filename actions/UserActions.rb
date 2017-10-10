@@ -1,12 +1,12 @@
 class UserActions
 
-    def UserActions.createUser(username:,
+    def UserActions.createUser(primaryEmail:,
                                password:,
                                passPhrase:,
                                ecdsa: nil)
         
         user = User.new()
-        user.username=username
+        user.primaryEmail=primaryEmail
         user.password=password
         user.passPhrase=passPhrase
 
@@ -28,11 +28,11 @@ class UserActions
     end
 
 
-    def UserActions.login(username:,
+    def UserActions.login(primaryEmail:,
                           password:)
 
         user = User.new()
-        user.username=username
+        user.primaryEmail=primaryEmail
         user.password=password
 
         response = RestClientWrapper::sendRequest(method: 'post',
@@ -88,10 +88,10 @@ class UserActions
     end
 
 
-    def UserActions.loginWithSignedTransaction(username:, ecdsa:)
+    def UserActions.loginWithSignedTransaction(primaryEmail:, ecdsa:)
 
-        if !ValueCheck.checkEmailAddress(username)
-            raise ArgumentError.new('UserActions.loginWithSignedTransaction: username must be an email address string')
+        if !ValueCheck.checkEmailAddress(primaryEmail)
+            raise ArgumentError.new('UserActions.loginWithSignedTransaction: primary email must be an email address string')
         end
         if !ecdsa.is_a?(ECDSA)
             raise ArgumentError.new('UserActions.loginWithSignedTransaction: ecdsa must be an ECDSA object')
@@ -111,7 +111,7 @@ class UserActions
         loginNonce = response.body
 
         loginTransaction = LoginTransaction.new()
-        loginTransaction.username=username
+        loginTransaction.username=primaryEmail
         loginTransaction.token=loginNonce
 
         signedTransaction = ecdsa.sign(loginTransaction.getDataToSign())
@@ -143,12 +143,12 @@ class UserActions
 
 
     def UserActions.generateWebLoginToken(nonce:,
-                                          username:,
+                                          email:,
                                           ecdhPublicKey:)
 
         webLoginIdentifyingDetails = WebLoginIdentifyingDetails.new
         webLoginIdentifyingDetails.nonce=nonce
-        webLoginIdentifyingDetails.username=username
+        webLoginIdentifyingDetails.email=email
         webLoginIdentifyingDetails.browserECDHPublicKey=ecdhPublicKey
 
         response = RestClientWrapper::sendRequest(method: 'post',
@@ -185,7 +185,7 @@ class UserActions
     end
 
 
-    def UserActions.webLoginFromToken(username:)
+    def UserActions.webLoginFromToken(email:)
 
         ecdh = ECDH.new()
         ecdh.generateLocalKey()
@@ -195,7 +195,7 @@ class UserActions
         nonce = UserActions.getWebTokenLoginNonce()
 
         UserActions.generateWebLoginToken(nonce: nonce,
-                                          username: username,
+                                          email: email,
                                           ecdhPublicKey: localPublicKey)
 
         webLoginAuthDetails = UserActions.getWebTokenLoginDetils(nonce: nonce)
@@ -206,7 +206,7 @@ class UserActions
         temporaryKey = ecdh.getSharedSecret()
 
         webLoginSessionDetails = WebLoginSessionDetails.new()
-        webLoginSessionDetails.username=username
+        webLoginSessionDetails.email=email
         webLoginSessionDetails.apiKey=webLoginAuthDetails.apiKey
         webLoginSessionDetails.sessionNonce=nonce
         webLoginSessionDetails.sessionKey=temporaryKey

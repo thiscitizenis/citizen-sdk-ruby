@@ -1,8 +1,8 @@
 class User
 
     attr_reader :id,
+                :primaryEmail,
                 :username,
-                :namespace,
                 :password,
                 :passwordTemporary,
                 :passPhrase,
@@ -18,8 +18,8 @@ class User
 
     def intitialize()
         @id                 = nil   # String (alpha-numeric)
-        @username           = nil   # String (email address)
-        @namespace          = nil   # String (alpha-numeric)
+        @primaryEmail       = nil   # String (email address)
+        @username           = nil   # String (alpha-numeric)
         @password           = nil   # String (alpha-numeric)
         @passwordTemporary  = nil   # Boolean
         @passPhrase         = nil   # String (alpha-numeric)
@@ -42,19 +42,19 @@ class User
     end
 
 
-    def username=(username)
-        if !ValueCheck.checkEmailAddress(username)
-            raise ArgumentError.new('User: username must be a string email address')
+    def primaryEmail=(primaryEmail)
+        if !ValueCheck.checkEmailAddress(primaryEmail)
+            raise ArgumentError.new('User: primary email must be a string email address')
         end
-        @username = username.dup()
+        @primaryEmail = primaryEmail.dup()
     end
 
 
-    def namespace=(namespace)
-        if !namespace.is_a?(String)
-            raise ArgumentError.new('User: namespace must be a string')
+    def username=(username)
+        if !username.is_a?(String)
+            raise ArgumentError.new('User: username must be a string')
         end
-        @namespace = namespace.dup()
+        @username = username.dup()
     end
 
 
@@ -154,8 +154,8 @@ class User
     def fromHash(attributeHash)
         if !attributeHash.nil?
             @id                 = attributeHash['id']
+            @primaryEmail       = attributeHash['primaryEmail']
             @username           = attributeHash['username']
-            @namespace          = attributeHash['namespace']
             @password           = attributeHash['password']
             @passwordTemporary  = attributeHash['passwordTemporary']
             @passPhrase         = attributeHash['passPhrase']

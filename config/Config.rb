@@ -1,7 +1,7 @@
 module Config
-    API_HOST   = "192.168.1.76"
-    API_PORT   = 8080
-    API_SECURE = false
+    API_HOST   = "development.citizen.is"
+    API_PORT   = 443
+    API_SECURE = true
 
     DEBUG      = false
 end

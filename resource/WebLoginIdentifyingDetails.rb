@@ -1,13 +1,13 @@
 class WebLoginIdentifyingDetails
 
     attr_reader :nonce, 
-                :username,
+                :email,
                 :browserECDHPublicKey
 
 
     def initialize()
         @nonce                = nil   # String (alpha-numeric)
-        @username             = nil   # String (email address)
+        @email                = nil   # String (email address)
         @browserECDHPublicKey = nil   # String (alpha-numeric) 
     end
 
@@ -20,11 +20,11 @@ class WebLoginIdentifyingDetails
     end
 
 
-    def username=(username)
-        if !ValueCheck.checkEmailAddress(username)
+    def email=(email)
+        if !ValueCheck.checkEmailAddress(email)
             raise ArgumentError.new('WebLoginIdentifyingDetails: must be a string email address')
         end
-        @username = username.dup()
+        @email = email.dup()
     end
 
 
@@ -39,7 +39,7 @@ class WebLoginIdentifyingDetails
     def fromHash(attributeHash)
         if !attributeHash.nil?
             @nonce                = attributeHash['nonce']
-            @username             = attributeHash['username']
+            @email                = attributeHash['email']
             @browserECDHPublicKey = attributeHash['browserECDHPublicKey']
         end
 
