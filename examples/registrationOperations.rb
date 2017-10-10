@@ -51,21 +51,21 @@ require "#{apiPath}/config/Config.rb"
 #
 # The following parameters need to be set to those of a valid phone number.
 #
-phoneNumber      = "1234578"
+phoneNumber      = "12345678"
 phoneCountryCode = "GB"
 #
 #############################################################################
 
-username    = Random.getRandomString(16) + "@test.com";
-password    = "Test1234"
-passphrase  = "Test12" 
-apiKey      = ""
-mnemonic    = ""
-personId    = ""
+primaryEmail = Random.getRandomString(16) + "@test.com";
+password     = "Test1234"
+passphrase   = "Test12" 
+apiKey       = ""
+mnemonic     = ""
+personId     = ""
 
-# A new user can be created by specifying a username, password and passphrase.
+# A new user can be created by specifying an email address, password and passphrase.
 
-user = UserActions.createUser(username: username,
+user = UserActions.createUser(primaryEmail: primaryEmail,
                               password: password,
                               passPhrase: passphrase)
 

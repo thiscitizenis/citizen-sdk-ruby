@@ -51,9 +51,9 @@ require "#{apiPath}/config/Config.rb"
 #
 # The following parameters need to be set to those of a current Citizen user.
 #
-username   = "test123@test.com";
-password   = "Test1234"
-passphrase = "Test12" 
+primaryEmail = "test123@test.com";
+password     = "Test1234"
+passphrase   = "Test12" 
 #
 ##############################################################################
 
@@ -61,9 +61,9 @@ userId     = ""
 mnemonic   = ""
 apiKey     = ""
 
-# Log in with a username and password, returning a User object.
+# Log in with an email address and password, returning a User object.
 
-user = UserActions.login(username: username,
+user = UserActions.login(primaryEmail: primaryEmail,
                          password: password)
 
 puts("*****************************************")
@@ -133,7 +133,7 @@ puts("*****************************************\n\n")
 # The public key needs to be enrolled once. After it is enrolled then
 # the user may use their private key to log in.
 
-user = UserActions.loginWithSignedTransaction(username: username,
+user = UserActions.loginWithSignedTransaction(primaryEmail: primaryEmail,
                                               ecdsa: ecdsa)
 
 puts("*****************************************")
@@ -157,8 +157,8 @@ access.add(AccessType::DOB)
 # that data can be decrypted - data about a user, including
 # email addresses are stored encrypted on the Citizen Service.
 
-token = TokenActions.createToken(requestorEmail: username,
-                                 userEmail: username,
+token = TokenActions.createToken(requestorEmail: primaryEmail,
+                                 userEmail: primaryEmail,
                                  access: access,
                                  durationType: TokenDurationType::MONTH,
                                  duration: 2,
@@ -255,8 +255,8 @@ access.add(AccessType::NAME)
 access.add(AccessType::DOB)
 access.add(AccessType::TOKEN_SIGNATURE)
 
-token = TokenActions.createToken(requestorEmail: username,
-                                 userEmail: username,
+token = TokenActions.createToken(requestorEmail: primaryEmail,
+                                 userEmail: primaryEmail,
                                  access: access,
                                  durationType: TokenDurationType::MONTH,
                                  duration: 2,
@@ -347,8 +347,8 @@ access = TokenAccess.new()
 access.add(AccessType::NAME)
 access.add(AccessType::DOB)
 
-token = TokenActions.createToken(requestorEmail: username,
-                                 userEmail: username,
+token = TokenActions.createToken(requestorEmail: primaryEmail,
+                                 userEmail: primaryEmail,
                                  access: access,
                                  durationType: TokenDurationType::MONTH,
                                  duration: 2,
@@ -387,7 +387,7 @@ puts("*****************************************\n\n")
 
 puts("\nSending web access token request - grant this on phone!\n\n")
 
-webLoginSessionDetails = UserActions.webLoginFromToken(username: username)
+webLoginSessionDetails = UserActions.webLoginFromToken(email: primaryEmail)
 
 puts("*****************************************")
 puts("TokenActions.webLoginSessionDetails()")
